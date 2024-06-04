@@ -6,12 +6,15 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 
 # Read API key from the secret file
-with open('langchain/secret.json') as f:
+with open('secret.json') as f:
     data = json.load(f)
 api_key = data["key"]
+langchain_key = data["langchian_api"]
 
 # Export the API key
 os.environ["OPENAI_API_KEY"] = api_key
+os.environ["LANGCHAIN_TRACING_V2"] = "true"
+os.environ["LANGCHAIN_API_KEY"] = langchain_key
 
 # Initialize the LLM with OpenAI
 llm = ChatOpenAI(
